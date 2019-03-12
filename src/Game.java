@@ -1,14 +1,14 @@
 import java.util.Scanner;
 
 public class Game{
-
     static void startGame(){
+        boolean hasWon = false;
         Player Player1 = new Player("Daniel" , 1);
         Player Player2 = new Player("Mathias" , 2);
         Board board = new Board();
         Scanner scanner = new Scanner(System.in);
         Player CurrentPlayer = Player1;
-        while ( true ){
+        while (!hasWon){
             System.out.println("It is " + CurrentPlayer.name + "'s turn");
             int index = scanner.nextInt();
             if ( index == -1 ){
@@ -25,6 +25,10 @@ public class Game{
                     }
                 }
                 board.setHasExtraTurn(false);
+            }
+            if(board.hasWon()){
+                hasWon = true;
+                board.printBoard();
             }
         }
     }
