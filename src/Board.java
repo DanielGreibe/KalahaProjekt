@@ -42,13 +42,15 @@ public class Board
         {
             if (i <= 5 || 7 <= i && i <= 12)
             {
-                KalahaBoard[i] = 6;
+                KalahaBoard[i] = 0;
             }
             else
             {
                 KalahaBoard[i] = 0;
             }
+
         }
+        KalahaBoard[12]=12;
     }
 
     public boolean move(int initialIndex, Player player)
@@ -66,7 +68,7 @@ public class Board
             System.out.println("You can't move from either of the two kalaha's");
             return false;
         }
-        if (player.playerNumber == 1 && currentIndex > 6 && currentIndex < 13)
+        if (player.playerNumber == 1 && currentIndex > 6)
         {
             System.out.println("Wrong side");
             return false;
@@ -80,11 +82,14 @@ public class Board
         while ( Balls != 0 )
         {
             currentIndex = (currentIndex + 1) % 14;
-                KalahaBoard[currentIndex] ++;
-            Balls--;
+            if (initialIndex < 6 && currentIndex != 13 || initialIndex > 6 && currentIndex != 6) {
+                KalahaBoard[currentIndex]++;
+                Balls--;
+            }
+            //Placing last ball in own or other side to maybe get a huge bonus
             if (Balls == 0 && KalahaBoard[currentIndex] == 1 && currentIndex != 6 && currentIndex != 13)
             {
-                if (currentIndex >= 7 && currentIndex <= 12 && initialIndex >= 7 && initialIndex <= 12)
+                if (currentIndex > 6 && currentIndex < 13 && initialIndex > 6 && initialIndex < 13)
                 {
                     KalahaBoard[13] = KalahaBoard[13] + KalahaBoard[currentIndex] + KalahaBoard[12 - currentIndex];
                     KalahaBoard[12 - currentIndex] = 0;
@@ -98,6 +103,7 @@ public class Board
                 }
 
             }
+            //Placing ball in your own kalaha for an extra turn
             if (Balls == 0 && currentIndex == 13 && initialIndex >= 7 && initialIndex <= 12 || Balls == 0 && currentIndex == 6 && initialIndex <= 5)
             {
                 System.out.println("You get an extra turn");
