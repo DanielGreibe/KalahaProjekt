@@ -1,20 +1,25 @@
-public class Board{
+public class Board
+{
     int[] KalahaBoard;
     Boolean hasExtraTurn;
 
-    public void setHasExtraTurn(boolean value){
+    public void setHasExtraTurn(boolean value)
+    {
         hasExtraTurn = value;
     }
-    public boolean getHasExtraTurn(){
+    public boolean getHasExtraTurn()
+    {
         return hasExtraTurn;
     }
-    public Board(){
+    public Board()
+    {
         KalahaBoard = new int[14];
         hasExtraTurn = false;
         setInitialState();
         printBoard();
     }
-    public void printBoard(){
+    public void printBoard()
+    {
         System.out.print("[" + KalahaBoard[0] + "] \t");
         System.out.print("[" + KalahaBoard[1] + "] \t");
         System.out.print("[" + KalahaBoard[2] + "] \t");
@@ -36,10 +41,8 @@ public class Board{
             } else {
                 KalahaBoard[i] = 0;
             }
+
         }
-        KalahaBoard[3] = 1;
-        KalahaBoard[0] = 1;
-        KalahaBoard[7] = 1;
     }
 
     public boolean move(int initialIndex, Player player){
