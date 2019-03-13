@@ -40,12 +40,16 @@ public class Board
         {
             if (i <= 5 || 7 <= i && i <= 12)
             {
-                KalahaBoard[i] = 6;
+                KalahaBoard[i] = 0;
             }
             else
             {
                 KalahaBoard[i] = 0;
             }
+
+            KalahaBoard[0] = 1;
+            KalahaBoard[10] = 5;
+            KalahaBoard[11] = 7;
 
         }
     }
@@ -92,13 +96,13 @@ public class Board
             {
                 if (currentIndex > 6 && currentIndex < 13 && initialIndex > 6)
                 {
-                    KalahaBoard[13] = KalahaBoard[13] + KalahaBoard[currentIndex] + KalahaBoard[12 - currentIndex];
+                    KalahaBoard[6] = KalahaBoard[6] + KalahaBoard[currentIndex] + KalahaBoard[12 - currentIndex];
                     KalahaBoard[12 - currentIndex] = 0;
                     KalahaBoard[currentIndex] = 0;
                 }
                 else if (currentIndex <= 5 && initialIndex <= 5)
                 {
-                    KalahaBoard[6] = KalahaBoard[6] + KalahaBoard[currentIndex] + KalahaBoard[12 - currentIndex];
+                    KalahaBoard[13] = KalahaBoard[13] + KalahaBoard[currentIndex] + KalahaBoard[12 - currentIndex];
                     KalahaBoard[12 - currentIndex] = 0;
                     KalahaBoard[currentIndex] = 0;
                 }
