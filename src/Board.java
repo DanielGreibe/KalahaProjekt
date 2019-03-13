@@ -3,23 +3,19 @@ public class Board
     int[] KalahaBoard;
     Boolean hasExtraTurn;
 
-    public void setHasExtraTurn(boolean value)
-    {
+    public void setHasExtraTurn(boolean value){
         hasExtraTurn = value;
     }
-    public boolean getHasExtraTurn()
-    {
+    public boolean getHasExtraTurn(){
         return hasExtraTurn;
     }
-    public Board()
-    {
+    public Board(){
         KalahaBoard = new int[14];
         hasExtraTurn = false;
         setInitialState();
         printBoard();
     }
-    public void printBoard()
-    {
+    public void printBoard(){
         System.out.print("[" + KalahaBoard[0] + "] \t");
         System.out.print("[" + KalahaBoard[1] + "] \t");
         System.out.print("[" + KalahaBoard[2] + "] \t");
@@ -34,14 +30,13 @@ public class Board
         System.out.print("[" + KalahaBoard[8] + "] \t");
         System.out.print("[" + KalahaBoard[7] + "] \n");
     }
-    public void setInitialState() {
+    public void setInitialState(){
         for ( int i = 0; i < KalahaBoard.length; i++){
             if (i <= 5 || 7 <= i && i <= 12){
                 KalahaBoard[i] = 6;
             } else {
                 KalahaBoard[i] = 0;
             }
-
         }
     }
 
@@ -53,26 +48,22 @@ public class Board
         int currentIndex = initialIndex;
         int Balls = KalahaBoard[currentIndex];
 
-        if ( currentIndex == 6 || currentIndex == 13)
-        {
+        if ( currentIndex == 6 || currentIndex == 13){
             System.out.println("You can't move from either of the two kalaha's");
             return false;
         }
-        if (player.playerNumber == 1 && currentIndex > 6)
-        {
+        if (player.playerNumber == 1 && currentIndex > 6){
             System.out.println("Wrong side");
             return false;
         }
-        else if (player.playerNumber == 2 && currentIndex < 6)
-        {
+        else if (player.playerNumber == 2 && currentIndex < 6){
             System.out.println("Wrong side");
             return false;
         }
         KalahaBoard[currentIndex] = 0;
         while ( Balls != 0 ) {
             currentIndex = (currentIndex - 1);
-            if (currentIndex == -1)
-            {
+            if (currentIndex == -1){
                 currentIndex = 13;
             }
             if (initialIndex < 6 && currentIndex != 6 || initialIndex > 6 && currentIndex != 13) {
@@ -80,25 +71,20 @@ public class Board
                 Balls--;
             }
             //Placing last ball in own or other side to maybe get a huge bonus
-            if (Balls == 0 && KalahaBoard[currentIndex] == 1 && currentIndex != 6 && currentIndex != 13)
-            {
-                if (currentIndex > 6 && currentIndex < 13 && initialIndex > 6)
-                {
+            if (Balls == 0 && KalahaBoard[currentIndex] == 1 && currentIndex != 6 && currentIndex != 13){
+                if (currentIndex > 6 && currentIndex < 13 && initialIndex > 6){
                     KalahaBoard[13] = KalahaBoard[13] + KalahaBoard[currentIndex] + KalahaBoard[12 - currentIndex];
                     KalahaBoard[12 - currentIndex] = 0;
                     KalahaBoard[currentIndex] = 0;
                 }
-                else if (currentIndex <= 5 && initialIndex <= 5)
-                {
+                else if (currentIndex <= 5 && initialIndex <= 5){
                     KalahaBoard[6] = KalahaBoard[6] + KalahaBoard[currentIndex] + KalahaBoard[12 - currentIndex];
                     KalahaBoard[12 - currentIndex] = 0;
                     KalahaBoard[currentIndex] = 0;
                 }
-
             }
             //Placing ball in your own kalaha for an extra turn
-            if (Balls == 0 && currentIndex == 6 || Balls == 0 && currentIndex == 13)
-            {
+            if (Balls == 0 && currentIndex == 6 || Balls == 0 && currentIndex == 13){
                 System.out.println("You get an extra turn");
                 hasExtraTurn = true;
             }
