@@ -42,7 +42,7 @@ public class Board
         {
             if (i <= 5 || 7 <= i && i <= 12)
             {
-                KalahaBoard[i] = 0;
+                KalahaBoard[i] = 6;
             }
             else
             {
@@ -50,7 +50,6 @@ public class Board
             }
 
         }
-        KalahaBoard[12]=12;
     }
 
     public boolean move(int initialIndex, Player player)
@@ -81,15 +80,19 @@ public class Board
         KalahaBoard[currentIndex] = 0;
         while ( Balls != 0 )
         {
-            currentIndex = (currentIndex + 1) % 14;
-            if (initialIndex < 6 && currentIndex != 13 || initialIndex > 6 && currentIndex != 6) {
+            currentIndex = (currentIndex - 1);
+            if (currentIndex == -1)
+            {
+                currentIndex = 13;
+            }
+            if (initialIndex < 6 && currentIndex != 6 || initialIndex > 6 && currentIndex != 13) {
                 KalahaBoard[currentIndex]++;
                 Balls--;
             }
             //Placing last ball in own or other side to maybe get a huge bonus
             if (Balls == 0 && KalahaBoard[currentIndex] == 1 && currentIndex != 6 && currentIndex != 13)
             {
-                if (currentIndex > 6 && currentIndex < 13 && initialIndex > 6 && initialIndex < 13)
+                if (currentIndex > 6 && currentIndex < 13 && initialIndex > 6)
                 {
                     KalahaBoard[13] = KalahaBoard[13] + KalahaBoard[currentIndex] + KalahaBoard[12 - currentIndex];
                     KalahaBoard[12 - currentIndex] = 0;
@@ -104,7 +107,7 @@ public class Board
 
             }
             //Placing ball in your own kalaha for an extra turn
-            if (Balls == 0 && currentIndex == 13 && initialIndex >= 7 && initialIndex <= 12 || Balls == 0 && currentIndex == 6 && initialIndex <= 5)
+            if (Balls == 0 && currentIndex == 6 || Balls == 0 && currentIndex == 13)
             {
                 System.out.println("You get an extra turn");
                 hasExtraTurn = true;
