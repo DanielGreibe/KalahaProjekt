@@ -19,46 +19,27 @@ public class Game{
             String index = scanner.next();
             switch(index){
                 case "1":
-                    if(CurrentPlayer == Player1){
-                        move(5);
-                    } else {
-                        move(12);
-                    }
+                    if(CurrentPlayer == Player1){move(5);}
+                    else {move(12);}
                     break;
                 case "2":
-                    if(CurrentPlayer == Player1){
-                        move(4);
-                    } else {
-                        move(11);
-                    }
+                    if(CurrentPlayer == Player1){move(4);}
+                    else{ move(11);}
                     break;
                 case "3":
-                    if(CurrentPlayer == Player1){
-                        move(3);
-                    } else {
-                        move(10);
-                    }
+                    if(CurrentPlayer == Player1){move(3);}
+                    else {move(10);}
                     break;
                 case "4":
-                    if(CurrentPlayer == Player1){
-                        move(2);
-                    } else {
-                        move(9);
-                    }
+                    if(CurrentPlayer == Player1){move(2);}
+                    else {move(9);}
                     break;
                 case "5":
-                    if(CurrentPlayer == Player1){
-                        move(1);
-                    } else {
-                        move(8);
-                    }
+                    if(CurrentPlayer == Player1){move(1);}
+                    else {move(8);}
                     break;
                 case "6":
-                    if(CurrentPlayer == Player1){
-                        move(0);
-                    } else {
-                        move(7);
-                    }
+                    if(CurrentPlayer == Player1){move(0);} else {move(7);}
                     break;
                 case "reset":
                     board.resetGame();

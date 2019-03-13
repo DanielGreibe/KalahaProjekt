@@ -86,11 +86,13 @@ public class Board{
 
         for ( int i = 0; i < KalahaBoard.length; i++){
             if (i <= 5 || 7 <= i && i <= 12){
-                KalahaBoard[i] = 6;
+                KalahaBoard[i] = 0;
             } else {
                 KalahaBoard[i] = 0;
             }
         }
+        KalahaBoard[5] = 1;
+        KalahaBoard[7] = 1;
         printBoard();
     }
 
