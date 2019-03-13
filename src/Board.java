@@ -37,7 +37,7 @@ public class Board
     public void setInitialState() {
         for ( int i = 0; i < KalahaBoard.length; i++){
             if (i <= 5 || 7 <= i && i <= 12){
-                KalahaBoard[i] = 0;
+                KalahaBoard[i] = 6;
             } else {
                 KalahaBoard[i] = 0;
             }
