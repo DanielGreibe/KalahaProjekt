@@ -34,20 +34,17 @@ public class Board
         System.out.print("[" + KalahaBoard[8] + "] \t");
         System.out.print("[" + KalahaBoard[7] + "] \n");
     }
-    public void setInitialState()
-    {
-        for ( int i = 0; i < KalahaBoard.length; i++)
-        {
-            if (i <= 5 || 7 <= i && i <= 12)
-            {
-                KalahaBoard[i] = 6;
-            }
-            else
-            {
+    public void setInitialState() {
+        for ( int i = 0; i < KalahaBoard.length; i++){
+            if (i <= 5 || 7 <= i && i <= 12){
+                KalahaBoard[i] = 0;
+            } else {
                 KalahaBoard[i] = 0;
             }
-
         }
+        KalahaBoard[3] = 1;
+        KalahaBoard[0] = 1;
+        KalahaBoard[7] = 1;
     }
 
     public boolean move(int initialIndex, Player player)
@@ -127,23 +124,23 @@ public class Board
             for(int i = 7; i <= 12; i++){
                 KalahaBoard[i] = 0;
             }
-            KalahaBoard[6] += player2;
-            System.out.println("\nSpillet er slut");
+            KalahaBoard[13] += player2;
+            System.out.println("\nSpillet er slut ");
             doWeHaveAWinner = true;
         } else if(player2 == 0){
             for(int i = 0; i <= 5; i++){
                 KalahaBoard[i] = 0;
             }
-            KalahaBoard[13] += player2;
+            KalahaBoard[6] += player1;
             System.out.println("\nSpillet er slut");
             doWeHaveAWinner = true;
         } else {
             doWeHaveAWinner = false;
         }
         if(doWeHaveAWinner) {
-            if(KalahaBoard[6] > KalahaBoard[13]) {
+            if(KalahaBoard[6] < KalahaBoard[13]) {
                 System.out.println("Spiller 1 har vindet");
-            } else if(KalahaBoard[6] < KalahaBoard[13]) {
+            } else if(KalahaBoard[6] > KalahaBoard[13]) {
                 System.out.println("Spiller 2 har vundet");
             } else {
                 System.out.println("Spillet er uafgjort");
