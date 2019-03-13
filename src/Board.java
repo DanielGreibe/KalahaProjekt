@@ -26,9 +26,7 @@ public class Board
         System.out.print("[" + KalahaBoard[3] + "] \t");
         System.out.print("[" + KalahaBoard[4] + "] \t");
         System.out.print("[" + KalahaBoard[5] + "] \t");
-
         System.out.print("\n[" + KalahaBoard[13] + "] \t \t \t \t \t \t \t \t \t[" + KalahaBoard[6] + "] \n");
-
         System.out.print("[" + KalahaBoard[12] + "] \t");
         System.out.print("[" + KalahaBoard[11] + "] \t");
         System.out.print("[" + KalahaBoard[10] + "] \t");
@@ -114,5 +112,43 @@ public class Board
             }
         }
         return true;
+    }
+    public boolean hasWon(){
+        boolean doWeHaveAWinner;
+        int player1 = 0;
+        int player2 = 0;
+        for(int i = 0; i <= 5; i++){
+            player1 += KalahaBoard[i];
+        }
+        for(int i = 7; i <= 12; i++){
+            player2 += KalahaBoard[i];
+        }
+        if(player1 == 0){
+            for(int i = 7; i <= 12; i++){
+                KalahaBoard[i] = 0;
+            }
+            KalahaBoard[6] += player2;
+            System.out.println("\nSpillet er slut");
+            doWeHaveAWinner = true;
+        } else if(player2 == 0){
+            for(int i = 0; i <= 5; i++){
+                KalahaBoard[i] = 0;
+            }
+            KalahaBoard[13] += player2;
+            System.out.println("\nSpillet er slut");
+            doWeHaveAWinner = true;
+        } else {
+            doWeHaveAWinner = false;
+        }
+        if(doWeHaveAWinner) {
+            if(KalahaBoard[6] > KalahaBoard[13]) {
+                System.out.println("Spiller 1 har vindet");
+            } else if(KalahaBoard[6] < KalahaBoard[13]) {
+                System.out.println("Spiller 2 har vundet");
+            } else {
+                System.out.println("Spillet er uafgjort");
+            }
+        }
+        return doWeHaveAWinner;
     }
 }
