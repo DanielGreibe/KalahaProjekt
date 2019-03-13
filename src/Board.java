@@ -1,5 +1,4 @@
-public class Board
-{
+public class Board{
     int[] KalahaBoard;
     Boolean hasExtraTurn;
 
@@ -10,34 +9,7 @@ public class Board
         return hasExtraTurn;
     }
     public Board(){
-        KalahaBoard = new int[14];
-        hasExtraTurn = false;
-        setInitialState();
-        printBoard();
-    }
-    public void printBoard(){
-        System.out.print("[" + KalahaBoard[0] + "] \t");
-        System.out.print("[" + KalahaBoard[1] + "] \t");
-        System.out.print("[" + KalahaBoard[2] + "] \t");
-        System.out.print("[" + KalahaBoard[3] + "] \t");
-        System.out.print("[" + KalahaBoard[4] + "] \t");
-        System.out.print("[" + KalahaBoard[5] + "] \t");
-        System.out.print("\n[" + KalahaBoard[13] + "] \t \t \t \t \t \t \t \t \t[" + KalahaBoard[6] + "] \n");
-        System.out.print("[" + KalahaBoard[12] + "] \t");
-        System.out.print("[" + KalahaBoard[11] + "] \t");
-        System.out.print("[" + KalahaBoard[10] + "] \t");
-        System.out.print("[" + KalahaBoard[9] + "] \t");
-        System.out.print("[" + KalahaBoard[8] + "] \t");
-        System.out.print("[" + KalahaBoard[7] + "] \n");
-    }
-    public void setInitialState(){
-        for ( int i = 0; i < KalahaBoard.length; i++){
-            if (i <= 5 || 7 <= i && i <= 12){
-                KalahaBoard[i] = 6;
-            } else {
-                KalahaBoard[i] = 0;
-            }
-        }
+        setupGame();
     }
 
     public boolean move(int initialIndex, Player player){
@@ -91,6 +63,41 @@ public class Board
         }
         return true;
     }
+
+    public void printBoard(){
+        System.out.print("[" + KalahaBoard[0] + "] \t");
+        System.out.print("[" + KalahaBoard[1] + "] \t");
+        System.out.print("[" + KalahaBoard[2] + "] \t");
+        System.out.print("[" + KalahaBoard[3] + "] \t");
+        System.out.print("[" + KalahaBoard[4] + "] \t");
+        System.out.print("[" + KalahaBoard[5] + "] \t");
+        System.out.print("\n[" + KalahaBoard[13] + "] \t \t \t \t \t \t \t \t \t[" + KalahaBoard[6] + "] \n");
+        System.out.print("[" + KalahaBoard[12] + "] \t");
+        System.out.print("[" + KalahaBoard[11] + "] \t");
+        System.out.print("[" + KalahaBoard[10] + "] \t");
+        System.out.print("[" + KalahaBoard[9] + "] \t");
+        System.out.print("[" + KalahaBoard[8] + "] \t");
+        System.out.print("[" + KalahaBoard[7] + "] \n");
+    }
+
+    public void setupGame(){
+        KalahaBoard = new int[14];
+        hasExtraTurn = false;
+
+        for ( int i = 0; i < KalahaBoard.length; i++){
+            if (i <= 5 || 7 <= i && i <= 12){
+                KalahaBoard[i] = 6;
+            } else {
+                KalahaBoard[i] = 0;
+            }
+        }
+        printBoard();
+    }
+
+    public void resetGame(){
+        setupGame();
+    }
+
     public boolean hasWon(){
         boolean doWeHaveAWinner;
         int player1 = 0;
