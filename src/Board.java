@@ -8,6 +8,7 @@ public class Board{
     public boolean getHasExtraTurn(){
         return hasExtraTurn;
     }
+    public int[] getKalahaBoard(){ return KalahaBoard; }
     public Board(){
         setupGame();
     }
@@ -45,12 +46,12 @@ public class Board{
             //Placing last ball in own or other side to maybe get a huge bonus
             if (Balls == 0 && KalahaBoard[currentIndex] == 1 && currentIndex != 6 && currentIndex != 13){
                 if (currentIndex > 6 && currentIndex < 13 && initialIndex > 6){
-                    KalahaBoard[13] = KalahaBoard[13] + KalahaBoard[currentIndex] + KalahaBoard[12 - currentIndex];
+                    KalahaBoard[6] = KalahaBoard[6] + KalahaBoard[currentIndex] + KalahaBoard[12 - currentIndex];
                     KalahaBoard[12 - currentIndex] = 0;
                     KalahaBoard[currentIndex] = 0;
                 }
                 else if (currentIndex <= 5 && initialIndex <= 5){
-                    KalahaBoard[6] = KalahaBoard[6] + KalahaBoard[currentIndex] + KalahaBoard[12 - currentIndex];
+                    KalahaBoard[13] = KalahaBoard[13] + KalahaBoard[currentIndex] + KalahaBoard[12 - currentIndex];
                     KalahaBoard[12 - currentIndex] = 0;
                     KalahaBoard[currentIndex] = 0;
                 }
@@ -86,13 +87,11 @@ public class Board{
 
         for ( int i = 0; i < KalahaBoard.length; i++){
             if (i <= 5 || 7 <= i && i <= 12){
-                KalahaBoard[i] = 0;
+                KalahaBoard[i] = 6;
             } else {
                 KalahaBoard[i] = 0;
             }
         }
-        KalahaBoard[5] = 1;
-        KalahaBoard[7] = 1;
         printBoard();
     }
 
