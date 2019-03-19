@@ -1,45 +1,45 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Node<T> {
-    private List<Node<T>> children = new ArrayList<Node<T>>();
-    private Node<T> parent = null;
-    private T data = null;
+public class Node<Integer> {
+    private List<Node<Integer>> children = new ArrayList<Node<Integer>>();
+    private Node<Integer> parent = null;
+    private Integer data = null;
 
-    public Node(T data) {
+    public Node(Integer data) {
         this.data = data;
     }
 
-    public Node(T data, Node<T> parent) {
+    public Node(Integer data, Node<Integer> parent) {
         this.data = data;
         this.parent = parent;
     }
 
-    public List<Node<T>> getChildren() {
+    public List<Node<Integer>> getChildren() {
         return children;
     }
 
-    public void setParent(Node<T> parent) {
+    public void setParent(Node<Integer> parent) {
         parent.addChild(this);
         this.parent = parent;
     }
 
-    public void addChild(T data) {
-        Node<T> child = new Node<T>(data);
+    public void addChild(Integer data) {
+        Node<Integer> child = new Node<Integer>(data);
         child.setParent(this);
         this.children.add(child);
     }
 
-    public void addChild(Node<T> child) {
+    public void addChild(Node<Integer> child) {
         child.setParent(this);
         this.children.add(child);
     }
 
-    public T getData() {
+    public Integer getData() {
         return this.data;
     }
 
-    public void setData(T data) {
+    public void setData(Integer data) {
         this.data = data;
     }
 
