@@ -6,6 +6,7 @@ import static java.lang.Math.random;
 import static jdk.nashorn.internal.objects.Global.Infinity;
 
 public class AI {
+    Board BoardClass = new Board();
     int[] board = new int[14];
     int[][] heap;
     boolean goalState = board[6] > 32 && board[6]+board[13]==72;
@@ -23,8 +24,10 @@ public class AI {
     public int alphaBeta(Node node, int depth, int alpha,int beta, boolean maxPlayer, int[] currentBoard){
         int val;
         setBoard(currentBoard);
+        MakeChildren(node, currentBoard);
+
         if(depth == 0 || goalState){
-            return evaluate();
+            return evaluate(currentBoard);
         }
         if(maxPlayer){
             val = -1000000;
@@ -52,17 +55,31 @@ public class AI {
         return val;
     }
 
+    private void MakeChildren(Node node, int[] currentBoard) {
+        for(int i = 0; i < 6; i++)
+        {
+            if (BoardClass.isLegal(i, 2, currentBoard))
+            {
+                Node child = new Node<Integer>(node , BoardClass.move(i, 2 ,currentBoard));
+                child.setData(evaluate(BoardClass.move(i, 2 ,currentBoard)));
+                node.addChild(child);
+            }
+
+        }
+    }
+
    /* public int[] newBoard(){
 
     }*/
 
     public void setHeap(int[] initBoard){
         int eval = (initBoard[6]-initBoard[13])*10;
-        init = new Node(eval, null, initBoard);
+        init = new Node(null, initBoard);
+        init.setData(eval);
     }
 
-    public int evaluate(){
-        return (board[6] - board[13])*10;
+    public int evaluate(int [] currentBoard){
+        return (currentBoard[6] - currentBoard[13])*10;
     }
 
 

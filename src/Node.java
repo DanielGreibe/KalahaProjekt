@@ -11,9 +11,8 @@ public class Node<Integer> {
         this.data = data;
     }
 
-    public Node(Integer heuristics, Node<Integer> parent, int[] currentBoard) {
-        this.data = heuristics;
-        this.parent = parent;
+    public Node(Node<Integer> parent, int[] currentBoard) {
+        this.setParent(parent);
         this.currentBoard = currentBoard;
     }
 
