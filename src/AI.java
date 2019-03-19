@@ -1,24 +1,33 @@
+import java.util.List;
+
+import static java.lang.Integer.max;
+import static java.lang.Math.min;
+import static jdk.nashorn.internal.objects.Global.Infinity;
+
 public class AI {
     int[] board = new int[14];
     int[][] heap;
     boolean goalState = board[13] < board[6];
+    Node init;
 
-    public int alphaBeta(int[][] node, int depth, int alpha,int beta, boolean maxPlayer, int[] currentBoard){
+    public int move(int[] initBoard){
+        setHeap(initBoard);
+        alphaBeta(init, 5, 1000000, -1000000, true, initBoard);
+    }
+
+
+    public int alphaBeta(Node node, int depth, int alpha,int beta, boolean maxPlayer, int[] currentBoard){
         int val;
         setBoard(currentBoard);
         if(depth == 0 || goalState){
-            if(goalState){
-                return (board[6] - board[13])*10;
-            } else if(depth == 0){
-                return evaluate();
-            }
+            return evaluate();
         }
         if(maxPlayer){
             val = -1000000;
-            list<node> children = node.getChildren;
+            List<Node<Integer>> children = node.getChildren();
             for(int i = 0; i < children.size(); i++){
-                val = max(val, alphaBeta(children.get(i), depth -1, alpha, beta, false));
-                alpha = max(alphs, val);
+                val = max(val, alphaBeta(children.get(i), depth -1, alpha, beta, false, newBoard()));
+                alpha = max(alpha, val);
                 if(alpha >= beta){
                     break;
                 }
@@ -26,9 +35,9 @@ public class AI {
             }
         } else{
             val = 1000000;
-            list<node> children = node.getChildren;
+            List<Node<Integer>> children = node.getChildren();
             for(int i = 0; i < children.size(); i++){
-                val = min(val, alphaBeta(children.get(i), depth -1, alpha, beta, true));
+                val = min(val, alphaBeta(children.get(i), depth -1, alpha, beta, true,  newBoard()));
                 beta = min(beta, val);
                 if(alpha >= beta){
                     break;
@@ -39,10 +48,17 @@ public class AI {
         return val;
     }
 
+    public int[] newBoard(){
+
+    }
+
+    public void setHeap(int[] initBoard){
+        int eval = (initBoard[6]-initBoard[13])*10;
+        init = new Node(eval, null, initBoard);
+    }
 
     public int evaluate(){
-
-        return 1; // FEJL
+        return (board[6] - board[13])*10;
     }
 
 

@@ -5,14 +5,16 @@ public class Node<Integer> {
     private List<Node<Integer>> children = new ArrayList<Node<Integer>>();
     private Node<Integer> parent = null;
     private Integer data = null;
+    private int[] currentBoard;
 
     public Node(Integer data) {
         this.data = data;
     }
 
-    public Node(Integer data, Node<Integer> parent) {
-        this.data = data;
+    public Node(Integer heuristics, Node<Integer> parent, int[] currentBoard) {
+        this.data = heuristics;
         this.parent = parent;
+        this.currentBoard = currentBoard;
     }
 
     public List<Node<Integer>> getChildren() {
