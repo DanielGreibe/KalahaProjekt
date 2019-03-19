@@ -16,7 +16,6 @@ public class AI {
         int moveIndex = alphaBeta(init, 5, 1000000, -1000000, true, initBoard);
 
 
-
         return moveIndex;
     }
 
