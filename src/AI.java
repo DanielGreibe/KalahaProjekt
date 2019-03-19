@@ -15,9 +15,26 @@ public class AI {
         }
         if(maxPlayer){
             val = -1000000;
-
+            list<node> children = node.getChildren;
+            for(int i = 0; i < children.size(); i++){
+                val = max(val, alphaBeta(children.get(i), depth -1, alpha, beta, false));
+                alpha = max(alphs, val);
+                if(alpha >= beta){
+                    break;
+                }
+                return val;
+            }
         } else{
             val = 1000000;
+            list<node> children = node.getChildren;
+            for(int i = 0; i < children.size(); i++){
+                val = min(val, alphaBeta(children.get(i), depth -1, alpha, beta, true));
+                beta = min(beta, val);
+                if(alpha >= beta){
+                    break;
+                }
+                return val;
+            }
         }
         return val;
     }
