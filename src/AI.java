@@ -13,11 +13,11 @@ public class AI {
 
     public int move(int[] initBoard){
         setHeap(initBoard);
-        alphaBeta(init, 5, 1000000, -1000000, true, initBoard);
+        int moveIndex = alphaBeta(init, 5, 1000000, -1000000, true, initBoard);
 
 
-        double house = random()*6;
-        return (int)house;
+
+        return moveIndex;
     }
 
 

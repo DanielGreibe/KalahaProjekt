@@ -17,11 +17,12 @@ public class Game{
         while (!hasWon){
             System.out.println("It is " + CurrentPlayer.name + "'s turn");
 
+            String index;
             if(CurrentPlayer.playerNumber == 1){
-                move(ai.move(board.getKalahaBoard()));
+                index = "" + ai.move(board.getKalahaBoard());
             }else{
-
-                String index = scanner.next();
+                index = scanner.next();
+            }
                 switch(index){
                     case "1":
                         if(CurrentPlayer == Player1){
@@ -74,7 +75,6 @@ public class Game{
                     default:
                         System.out.println("Forkert input, prøv igen");
                         break;
-                }
             }
             if(board.hasWon()){
                 hasWon = true;
