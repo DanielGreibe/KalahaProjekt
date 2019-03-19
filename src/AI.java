@@ -2,11 +2,9 @@ import java.util.List;
 
 import static java.lang.Integer.max;
 import static java.lang.Math.min;
-import static java.lang.Math.random;
-import static jdk.nashorn.internal.objects.Global.Infinity;
 
 public class AI {
-    Board BoardClass = new Board();
+    Board boardClass = new Board();
     int[] board = new int[14];
     int[][] heap;
     boolean goalState = board[6] > 32 && board[6]+board[13]==72;
@@ -17,7 +15,7 @@ public class AI {
         int moveIndex = alphaBeta(init, 5, 1000000, -1000000, true, initBoard);
 
 
-        return moveIndex;
+        return 5;
     }
 
 
@@ -58,10 +56,10 @@ public class AI {
     private void MakeChildren(Node node, int[] currentBoard) {
         for(int i = 0; i < 6; i++)
         {
-            if (BoardClass.isLegal(i, 2, currentBoard))
+            if (boardClass.isLegal(i, 2, currentBoard))
             {
-                Node child = new Node<Integer>(node , BoardClass.move(i, 2 ,currentBoard));
-                child.setData(evaluate(BoardClass.move(i, 2 ,currentBoard)));
+                Node child = new Node<Integer>(node , boardClass.move(i, 2 ,currentBoard));
+                child.setData(evaluate(boardClass.move(i, 2 ,currentBoard)));
                 node.addChild(child);
             }
 
@@ -74,7 +72,7 @@ public class AI {
 
     public void setHeap(int[] initBoard){
         int eval = (initBoard[6]-initBoard[13])*10;
-        init = new Node(null, initBoard);
+        init = new Node(initBoard);
         init.setData(eval);
     }
 
