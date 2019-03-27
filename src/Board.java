@@ -22,7 +22,7 @@ public class Board{
         if(initialIndex < 0 || initialIndex > 13){
             return false;
         }
-        System.out.println("\nThe player moves from " + initialIndex);
+        System.out.println("\nThe player moves from " + initialIndex + " in move that returns a Boolean");
         int currentIndex = initialIndex;
         int Balls = KalahaBoard[currentIndex];
 
@@ -69,10 +69,14 @@ public class Board{
     }
 
     public int[] move(int initialIndex, int playerNumber, int[] boardState){
+        if (playerNumber == 2)
+        {
+            initialIndex = initialIndex + 7;
+        }
         if(initialIndex < 0 || initialIndex > 13){
             return boardState;
         }
-        System.out.println("\nThe player moves from " + initialIndex);
+        System.out.println("\nThe player moves from " + initialIndex + " in move that returns a boardstate");
         int currentIndex = initialIndex;
         int Balls = boardState[currentIndex];
 
@@ -191,53 +195,28 @@ public class Board{
         return doWeHaveAWinner;
     }
 
-    public boolean isLegal(int initialIndex, int playerNumber, int[] boardState){
+    public boolean isLegal(int initialIndex, int playerNumber){
+        if (playerNumber == 2)
+        {
+            initialIndex = initialIndex + 7;
+        }
+        //Try to move from a value out of range.
         if(initialIndex < 0 || initialIndex > 13){
             return false;
         }
-        System.out.println("\nThe player moves from " + initialIndex);
-        int currentIndex = initialIndex;
-        int Balls = boardState[currentIndex];
-
-        if(currentIndex == 6 || currentIndex == 13){
-            System.out.println("You can't move from either of the two kalaha's");
+        //Try to move from either of the two Kalaha's
+        if(initialIndex == 6 || initialIndex == 13){
             return false;
         }
-        if(playerNumber == 1 && currentIndex > 6){
-            System.out.println("Wrong side");
-            return false;
-        } else if(playerNumber == 2 && currentIndex < 6){
-            System.out.println("Wrong side");
+        //Player 1 moving from the wrong side
+        if(playerNumber == 1 && initialIndex > 6){
             return false;
         }
-        boardState[currentIndex] = 0;
-        while(Balls != 0){
-            currentIndex = (currentIndex - 1);
-            if(currentIndex == -1){
-                currentIndex = 13;
-            }
-            if(initialIndex < 6 && currentIndex != 6 || initialIndex > 6 && currentIndex != 13){
-                boardState[currentIndex]++;
-                Balls--;
-            }
-            //Placing last ball in own or other side to maybe get a huge bonus
-            if(Balls == 0 && boardState[currentIndex] == 1 && currentIndex != 6 && currentIndex != 13){
-                if(currentIndex > 6 && currentIndex < 13 && initialIndex > 6){
-                    boardState[6] = boardState[6] + boardState[currentIndex] + boardState[12 - currentIndex];
-                    boardState[12 - currentIndex] = 0;
-                    boardState[currentIndex] = 0;
-                } else if(currentIndex <= 5 && initialIndex <= 5){
-                    boardState[13] = boardState[13] + boardState[currentIndex] + boardState[12 - currentIndex];
-                    boardState[12 - currentIndex] = 0;
-                    boardState[currentIndex] = 0;
-                }
-            }
-            //Placing ball in your own kalaha for an extra turn
-            if(Balls == 0 && currentIndex == 6 || Balls == 0 && currentIndex == 13){
-                System.out.println("You get an extra turn");
-                hasExtraTurn = true;
-            }
+        //Player 2 moving from the wrong side
+        else if(playerNumber == 2 && initialIndex < 6){
+            return false;
         }
+        //It is a legal move
         return true;
     }
 }

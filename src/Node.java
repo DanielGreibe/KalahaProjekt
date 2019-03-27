@@ -21,7 +21,7 @@ public class Node<Integer> {
     }
 
     public void setParent(Node<Integer> parent) {
-        parent.addChild(this);
+        //parent.addChild(this);
         this.parent = parent;
     }
 
@@ -43,7 +43,10 @@ public class Node<Integer> {
     public void setData(Integer data) {
         this.data = data;
     }
-
+    public int[] getCurrentBoard()
+    {
+        return currentBoard;
+    }
     public boolean isRoot() {
         return (this.parent == null);
     }

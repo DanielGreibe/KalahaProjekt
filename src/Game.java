@@ -8,19 +8,21 @@ public class Game{
 
     static void startGame(){
         boolean hasWon = false;
-        Player1 = new Player("AI" , 1);
-        Player2 = new Player("Human" , 2);
+        Player1 = new Player("Human" , 2);
+        Player2 = new Player("AI" , 1);
         AI ai = new AI();
         board = new Board();
         Scanner scanner = new Scanner(System.in);
-        CurrentPlayer = Player1;
+        CurrentPlayer = Player2;
         while (!hasWon){
             System.out.println("It is " + CurrentPlayer.name + "'s turn");
 
             String index;
             if(CurrentPlayer.playerNumber == 1){
                 index = "" + ai.move(board.getKalahaBoard());
+                System.out.println("Value of Index in Game is" + index);
             }else{
+                System.out.println("Indtast felt at rykke fra");
                 index = scanner.next();
             }
                 switch(index){

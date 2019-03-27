@@ -12,10 +12,10 @@ public class AI {
 
     public int move(int[] initBoard){
         setHeap(initBoard);
-        int moveIndex = alphaBeta(init, 5, 1000000, -1000000, true, initBoard);
+        int moveIndex = alphaBeta(init, 1, 1000000, -1000000, true, initBoard);
 
 
-        return 5;
+        return moveIndex;
     }
 
 
@@ -53,14 +53,14 @@ public class AI {
         return val;
     }
 
-    private void MakeChildren(Node node, int[] currentBoard) {
+    private void MakeChildren(Node parent, int[] currentBoard) {
         for(int i = 0; i < 6; i++)
         {
-            if (boardClass.isLegal(i, 2, currentBoard))
+            if (boardClass.isLegal(i, 2))
             {
-                Node child = new Node<Integer>(node , boardClass.move(i, 2 ,currentBoard));
-                child.setData(evaluate(boardClass.move(i, 2 ,currentBoard)));
-                node.addChild(child);
+                Node child = new Node<Integer>(parent , boardClass.move(i, 2 ,currentBoard));
+                child.setData(evaluate(child.getCurrentBoard()));
+                parent.addChild(child);
             }
 
         }
