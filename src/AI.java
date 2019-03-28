@@ -56,7 +56,7 @@ public class AI {
     private void MakeChildren(Node parent, int[] currentBoard) {
         for(int i = 0; i < 6; i++)
         {
-            if (boardClass.isLegal(i, 2))
+            if (boardClass.isLegalMove(i, 2))
             {
                 Node child = new Node<Integer>(parent , boardClass.move(i, 2 ,currentBoard));
                 child.setData(evaluate(child.getCurrentBoard()));
