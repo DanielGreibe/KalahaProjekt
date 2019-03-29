@@ -18,58 +18,23 @@ public class Board{
         setupGame();
     }
 
-    public boolean move(int initialIndex, Player player){
-        Boolean legalMove = isLegalMove(initialIndex, player.playerNumber);
-        int currentIndex = initialIndex;
-        int Balls = KalahaBoard[currentIndex];
-        KalahaBoard[currentIndex] = 0;
-
-        if (!legalMove)
+    public int[] move(int action, Player player, int[] boardState){
+        Boolean legalMove = isLegalMove(action, player);
+        int currentIndex = 0;
+        if (player.playerNumber == 2)
         {
-            return false;
+            currentIndex = 13 - action;
         }
-        while(Balls != 0){
-            currentIndex = (currentIndex - 1);
-            if(currentIndex == -1){
-                currentIndex = 13;
-            }
-            if(initialIndex < 6 && currentIndex != 6 || initialIndex > 6 && currentIndex != 13){
-                KalahaBoard[currentIndex]++;
-                Balls--;
-            }
-            //Placing last ball in own or other side to maybe get a huge bonus
-            if(Balls == 0 && KalahaBoard[currentIndex] == 1 && currentIndex != 6 && currentIndex != 13){
-                if(currentIndex > 6 && currentIndex < 13 && initialIndex > 6){
-                    KalahaBoard[6] = KalahaBoard[6] + KalahaBoard[currentIndex] + KalahaBoard[12 - currentIndex];
-                    KalahaBoard[12 - currentIndex] = 0;
-                    KalahaBoard[currentIndex] = 0;
-                } else if(currentIndex <= 5 && initialIndex <= 5){
-                    KalahaBoard[13] = KalahaBoard[13] + KalahaBoard[currentIndex] + KalahaBoard[12 - currentIndex];
-                    KalahaBoard[12 - currentIndex] = 0;
-                    KalahaBoard[currentIndex] = 0;
-                }
-            }
-            //Placing ball in your own kalaha for an extra turn
-            if(Balls == 0 && currentIndex == 6 || Balls == 0 && currentIndex == 13){
-                System.out.println("You get an extra turn");
-                hasExtraTurn = true;
-            }
+        else if (player.playerNumber == 1)
+        {
+            currentIndex = 6 - action;
         }
-        return true;
-    }
-
-    public int[] move(int initialIndex, int playerNumber, int[] boardState){
-        Boolean legalMove = isLegalMove(initialIndex, playerNumber);
-        int currentIndex = initialIndex;
         int Balls = boardState[currentIndex];
         boardState[currentIndex] = 0;
-
-
         if(!legalMove)
         {
             return boardState;
         }
-
         while(Balls != 0)
         {
             currentIndex = (currentIndex - 1);
@@ -79,17 +44,17 @@ public class Board{
                 currentIndex = 13;
             }
             //Checks that the index is not in the opponents Kalaha
-            if(initialIndex < 6 && currentIndex != 6 || initialIndex > 6 && currentIndex != 13){
+            if(action < 6 && currentIndex != 6 || action > 6 && currentIndex != 13){
                 boardState[currentIndex]++;
                 Balls--;
             }
             //Placing last ball in own or other side to maybe get a huge bonus
             if(Balls == 0 && boardState[currentIndex] == 1 && currentIndex != 6 && currentIndex != 13){
-                if(currentIndex > 6 && currentIndex < 13 && initialIndex > 6){
+                if(currentIndex > 6 && currentIndex < 13 && action > 6){
                     boardState[6] = boardState[6] + boardState[currentIndex] + boardState[12 - currentIndex];
                     boardState[12 - currentIndex] = 0;
                     boardState[currentIndex] = 0;
-                } else if(currentIndex <= 5 && initialIndex <= 5){
+                } else if(currentIndex <= 5 && action <= 5){
                     boardState[13] = boardState[13] + boardState[currentIndex] + boardState[12 - currentIndex];
                     boardState[12 - currentIndex] = 0;
                     boardState[currentIndex] = 0;
@@ -121,7 +86,7 @@ public class Board{
     }
 
     public void setupGame(){
-        KalahaBoard = new int[14];
+        KalahaBoard = new int[15];
         hasExtraTurn = false;
 
         for(int i = 0; i < KalahaBoard.length; i++){
@@ -177,25 +142,29 @@ public class Board{
         return doWeHaveAWinner;
     }
 
-    public boolean isLegalMove(int initialIndex, int playerNumber){
-        if (playerNumber == 2)
+    public boolean isLegalMove(int action, Player player){
+        if (player.playerNumber == 2)
         {
-            initialIndex = initialIndex + 7;
+            action = 13 - action;
+        }
+        else if (player.playerNumber == 1)
+        {
+            action = 6 - action;
         }
         //Try to move from a value out of range.
-        if(initialIndex < 0 || initialIndex > 13){
+        if(action < 0 || action > 13){
             return false;
         }
         //Try to move from either of the two Kalaha's
-        if(initialIndex == 6 || initialIndex == 13){
+        if(action == 6 || action == 13){
             return false;
         }
         //Player 1 moving from the wrong side
-        if(playerNumber == 1 && initialIndex > 6){
+        if(player.playerNumber == 1 && action > 6){
             return false;
         }
         //Player 2 moving from the wrong side
-        else if(playerNumber == 2 && initialIndex < 6){
+        else if(player.playerNumber == 2 && action < 6){
             return false;
         }
         //It is a legal move

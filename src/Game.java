@@ -8,77 +8,49 @@ public class Game{
 
     static void startGame(){
         boolean hasWon = false;
-        Player1 = new Player("Human" , 2);
-        Player2 = new Player("AI" , 1);
+        Player1 = new Player("Human1" , 1);
+        Player2 = new Player("Human2" , 2);
         AI ai = new AI();
         board = new Board();
         Scanner scanner = new Scanner(System.in);
         CurrentPlayer = Player2;
+
+
         while (!hasWon){
             System.out.println("It is " + CurrentPlayer.name + "'s turn");
-
-            String index;
+            int index;
             if(CurrentPlayer.playerNumber == 1){
-                index = "" + ai.move(board.getKalahaBoard());
+               // index = ai.move(board.getKalahaBoard());
+                index = scanner.nextInt();
                 System.out.println("Value of Index in Game is" + index);
             }else{
                 System.out.println("Indtast felt at rykke fra");
-                index = scanner.next();
+                index = scanner.nextInt();
             }
                 switch(index){
-                    case "1":
-                        if(CurrentPlayer == Player1){
-                            move(5);
-                        } else{
-                            move(12);
-                        }
+                    case 1:
+                        move(1, CurrentPlayer);
                         break;
-                    case "2":
-                        if(CurrentPlayer == Player1){
-                            move(4);
-                        } else{
-                            move(11);
-                        }
+                    case 2:
+                        move(2, CurrentPlayer);
                         break;
-                    case "3":
-                        if(CurrentPlayer == Player1){
-                            move(3);
-                        } else{
-                            move(10);
-                        }
+                    case 3:
+                        move(3, CurrentPlayer);
                         break;
-                    case "4":
-                        if(CurrentPlayer == Player1){
-                            move(2);
-                        } else{
-                            move(9);
-                        }
+                    case 4:
+                        move(4, CurrentPlayer);
                         break;
-                    case "5":
-                        if(CurrentPlayer == Player1){
-                            move(1);
-                        } else{
-                            move(8);
-                        }
+                    case 5:
+                        move(5, CurrentPlayer);
                         break;
-                    case "6":
-                        if(CurrentPlayer == Player1){
-                            move(0);
-                        } else{
-                            move(7);
-                        }
-                        break;
-                    case "reset":
-                        board.resetGame();
-                        break;
-                    case "break":
-                        hasWon = true;
+                    case 6:
+                        move(6, CurrentPlayer);
                         break;
                     default:
                         System.out.println("Forkert input, prøv igen");
                         break;
             }
-            if(board.hasWon()){
+            if(TerminalTest(board.getKalahaBoard())){
                 hasWon = true;
                 board.printBoard();
             } else {
@@ -86,16 +58,68 @@ public class Game{
             }
         }
     }
-    static void move(int index){
-        boolean LegalMove = board.move(index, CurrentPlayer);
-        if (LegalMove && !board.getHasExtraTurn()) {
-            if (CurrentPlayer.equals(Player1)) {
-                CurrentPlayer = Player2;
+    static void move(int action, Player currentPlayer){
+        boolean LegalMove = board.isLegalMove(action, currentPlayer);
+        if (LegalMove)
+        {
+            board.move(action, currentPlayer, board.getKalahaBoard());
+            if (!board.getHasExtraTurn())
+            {
+                if (currentPlayer == Player1)
+                {
+                    CurrentPlayer = Player2;
+                }
+                else {
+                    CurrentPlayer = Player1;
+                }
             }
-            else {
-                CurrentPlayer = Player1;
+            board.setHasExtraTurn(false);
+        }
+    }
+    public Player Player(int[] boardState)
+    {
+        if(boardState[14] == 1)
+        {
+            return Player1;
+        }
+        else
+        {
+            return Player2;
+        }
+    }
+    public int[] Actions(int[] boardState)
+    {
+        int[] Actions = new int[6];
+        for(int i= 0; i < boardState.length; i++)
+        {
+            if (board.isLegalMove(i , Player(boardState)))
+            {
+                Actions[i] = i;
+            }
+            else
+            {
+                Actions[i] = -1;
             }
         }
-        board.setHasExtraTurn(false);
+        return Actions;
+    }
+    public int[] Result(int[] boardState, int action)
+    {
+        return board.move(action, Player(boardState), boardState);
+    }
+    public static boolean TerminalTest(int[] boardState)
+    {
+        return boardState[6]+boardState[13] == 72;
+    }
+    public int Utility(int[] boardState, Player player)
+    {
+        if (player.playerNumber == 1)
+        {
+            return (boardState[13]-boardState[6])*10;
+        }
+        else
+        {
+            return (boardState[6] - boardState[13])*10;
+        }
     }
 }

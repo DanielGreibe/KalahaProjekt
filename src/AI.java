@@ -15,7 +15,7 @@ public class AI {
         int moveIndex = alphaBeta(init, 1, 1000000, -1000000, true, initBoard);
 
 
-        return moveIndex;
+        return 5;
     }
 
 
@@ -54,16 +54,18 @@ public class AI {
     }
 
     private void MakeChildren(Node parent, int[] currentBoard) {
+        /*
         for(int i = 0; i < 6; i++)
         {
             if (boardClass.isLegalMove(i, 2))
             {
-                Node child = new Node<Integer>(parent , boardClass.move(i, 2 ,currentBoard));
+               / Node child = new Node<Integer>(parent , boardClass.move(i, 2 ,currentBoard));
                 child.setData(evaluate(child.getCurrentBoard()));
                 parent.addChild(child);
             }
 
         }
+        */
     }
 
    /* public int[] newBoard(){
