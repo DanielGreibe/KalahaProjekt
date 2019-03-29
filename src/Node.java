@@ -6,14 +6,16 @@ public class Node<Integer> {
     private Node<Integer> parent = null;
     private Integer data = null;
     private int[] currentBoard;
+    private int action;
 
     public Node(Integer data) {
         this.data = data;
     }
 
-    public Node(Node<Integer> parent, int[] currentBoard) {
+    public Node(Node<Integer> parent, int[] currentBoard, int action) {
         this.setParent(parent);
         this.currentBoard = currentBoard;
+        this.action = action;
     }
 
     public List<Node<Integer>> getChildren() {
@@ -57,5 +59,14 @@ public class Node<Integer> {
 
     public void removeParent() {
         this.parent = null;
+    }
+
+    public void setAction(int action)
+    {
+        this.action = action;
+    }
+    public int getAction()
+    {
+        return action;
     }
 }

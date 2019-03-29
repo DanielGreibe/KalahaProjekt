@@ -44,27 +44,36 @@ public class Board{
                 currentIndex = 13;
             }
             //Checks that the index is not in the opponents Kalaha
-            if(action < 6 && currentIndex != 6 || action > 6 && currentIndex != 13){
+            if(player.playerNumber == 1 && currentIndex != 6 || player.playerNumber == 2 && currentIndex != 13){
                 boardState[currentIndex]++;
                 Balls--;
             }
             //Placing last ball in own or other side to maybe get a huge bonus
-            if(Balls == 0 && boardState[currentIndex] == 1 && currentIndex != 6 && currentIndex != 13){
-                if(currentIndex > 6 && currentIndex < 13 && action > 6){
-                    boardState[6] = boardState[6] + boardState[currentIndex] + boardState[12 - currentIndex];
+            if(Balls == 0 && boardState[currentIndex] == 1){
+                if(player.playerNumber == 1 && currentIndex < 6){
+
+                    boardState[13] = boardState[13] + boardState[currentIndex] + boardState[12 - currentIndex];
                     boardState[12 - currentIndex] = 0;
                     boardState[currentIndex] = 0;
-                } else if(currentIndex <= 5 && action <= 5){
-                    boardState[13] = boardState[13] + boardState[currentIndex] + boardState[12 - currentIndex];
+                } else if(player.playerNumber == 2 && currentIndex >= 7 && currentIndex <= 12){
+                    boardState[6] = boardState[6] + boardState[currentIndex] + boardState[12 - currentIndex];
                     boardState[12 - currentIndex] = 0;
                     boardState[currentIndex] = 0;
                 }
             }
             //Placing ball in your own kalaha for an extra turn
-            if(Balls == 0 && currentIndex == 6 || Balls == 0 && currentIndex == 13){
+            if(Balls == 0 && currentIndex == 6 || Balls == 0 && currentIndex == 13)
+            {
                 System.out.println("You get an extra turn");
                 hasExtraTurn = true;
+                boardState[14] = 1;
             }
+
+            if (hasPlayerWon(player))
+            {
+                CleanupPostGame(player);
+            }
+
         }
         return boardState;
     }
@@ -96,50 +105,15 @@ public class Board{
                 KalahaBoard[i] = 0;
             }
         }
+        /*
+        KalahaBoard[7] = 0;
+        KalahaBoard[8] = 0;
+        KalahaBoard[9] = 0;
+        KalahaBoard[10] = 0;
+        KalahaBoard[11] = 0;
+        KalahaBoard[12] = 1;
+        */
         printBoard();
-    }
-
-    public void resetGame(){
-        setupGame();
-    }
-
-    public boolean hasWon(){
-        boolean doWeHaveAWinner;
-        int player1 = 0;
-        int player2 = 0;
-        for(int i = 0; i <= 5; i++){
-            player1 += KalahaBoard[i];
-        }
-        for(int i = 7; i <= 12; i++){
-            player2 += KalahaBoard[i];
-        }
-        if(player1 == 0){
-            for(int i = 7; i <= 12; i++){
-                KalahaBoard[i] = 0;
-            }
-            KalahaBoard[13] += player2;
-            System.out.println("\nSpillet er slut ");
-            doWeHaveAWinner = true;
-        } else if(player2 == 0){
-            for(int i = 0; i <= 5; i++){
-                KalahaBoard[i] = 0;
-            }
-            KalahaBoard[6] += player1;
-            System.out.println("\nSpillet er slut");
-            doWeHaveAWinner = true;
-        } else{
-            doWeHaveAWinner = false;
-        }
-        if(doWeHaveAWinner){
-            if(KalahaBoard[6] < KalahaBoard[13]){
-                System.out.println("Spiller 1 har vindet");
-            } else if(KalahaBoard[6] > KalahaBoard[13]){
-                System.out.println("Spiller 2 har vundet");
-            } else{
-                System.out.println("Spillet er uafgjort");
-            }
-        }
-        return doWeHaveAWinner;
     }
 
     public boolean isLegalMove(int action, Player player){
@@ -169,5 +143,55 @@ public class Board{
         }
         //It is a legal move
         return true;
+    }
+    public boolean hasPlayerWon(Player player)
+    {
+        if (player.playerNumber == 1)
+        {
+            for(int i = 0; i < 6; i++)
+            {
+                if (KalahaBoard[i] != 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        else
+        {
+            for(int i = 7; i < 13; i++)
+            {
+                if (KalahaBoard[i] != 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+    public void CleanupPostGame(Player player)
+    {
+       if (player.playerNumber == 1)
+       {
+          for(int i = 0; i < 13; i++)
+          {
+              if (i != 6)
+              {
+                  KalahaBoard[13] += KalahaBoard[i];
+                  KalahaBoard[i] = 0;
+              }
+          }
+       }
+       else if (player.playerNumber == 2)
+       {
+           for(int i = 0; i < 13; i++)
+           {
+               if (i != 6)
+               {
+                   KalahaBoard[6] += KalahaBoard[i];
+                   KalahaBoard[i] = 0;
+               }
+           }
+       }
     }
 }

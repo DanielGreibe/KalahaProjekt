@@ -8,21 +8,20 @@ public class Game{
 
     static void startGame(){
         boolean hasWon = false;
-        Player1 = new Player("Human1" , 1);
-        Player2 = new Player("Human2" , 2);
+        Player1 = new Player("AI" , 1);
+        Player2 = new Player("Human" , 2);
         AI ai = new AI();
         board = new Board();
         Scanner scanner = new Scanner(System.in);
-        CurrentPlayer = Player2;
+        CurrentPlayer = Player1;
 
 
         while (!hasWon){
             System.out.println("It is " + CurrentPlayer.name + "'s turn");
             int index;
             if(CurrentPlayer.playerNumber == 1){
-               // index = ai.move(board.getKalahaBoard());
-                index = scanner.nextInt();
-                System.out.println("Value of Index in Game is" + index);
+               index = ai.move(board.getKalahaBoard());
+               //index = scanner.nextInt();
             }else{
                 System.out.println("Indtast felt at rykke fra");
                 index = scanner.nextInt();
@@ -87,22 +86,7 @@ public class Game{
             return Player2;
         }
     }
-    public int[] Actions(int[] boardState)
-    {
-        int[] Actions = new int[6];
-        for(int i= 0; i < boardState.length; i++)
-        {
-            if (board.isLegalMove(i , Player(boardState)))
-            {
-                Actions[i] = i;
-            }
-            else
-            {
-                Actions[i] = -1;
-            }
-        }
-        return Actions;
-    }
+
     public int[] Result(int[] boardState, int action)
     {
         return board.move(action, Player(boardState), boardState);
@@ -111,15 +95,5 @@ public class Game{
     {
         return boardState[6]+boardState[13] == 72;
     }
-    public int Utility(int[] boardState, Player player)
-    {
-        if (player.playerNumber == 1)
-        {
-            return (boardState[13]-boardState[6])*10;
-        }
-        else
-        {
-            return (boardState[6] - boardState[13])*10;
-        }
-    }
+
 }
