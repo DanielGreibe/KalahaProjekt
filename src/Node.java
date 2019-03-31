@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node<Integer> {
-    private List<Node<Integer>> children = new ArrayList<Node<Integer>>();
+    private List<Node<Integer>> children = new ArrayList<>();
     private Node<Integer> parent = null;
     private Integer data = null;
     private int[] currentBoard;
@@ -28,7 +28,7 @@ public class Node<Integer> {
     }
 
     public void addChild(Integer data) {
-        Node<Integer> child = new Node<Integer>(data);
+        Node<Integer> child = new Node<>(data);
         child.setParent(this);
         this.children.add(child);
     }
