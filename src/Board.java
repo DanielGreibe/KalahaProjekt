@@ -79,16 +79,41 @@ public class Board{
             {
                 setHasExtraTurn(false, boardState);
             }
-
-            if (hasPlayerWon(player))
+            if (playerOneHasWon(boardState))
             {
-                CleanupPostGame(player);
+                CleanupPostGame(1, boardState);
+            }
+            else if (playerTwoHasWon(boardState))
+            {
+                CleanupPostGame(2, boardState);
             }
 
         }
         return boardState;
     }
 
+    public boolean playerOneHasWon(int[] boardState)
+    {
+        for(int i = 0; i < 6; i++)
+        {
+            if (boardState[i] != 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean playerTwoHasWon(int[] boardState)
+    {
+        for(int i = 7; i < 13; i++)
+        {
+            if (boardState[i] != 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
     public void printBoard(){
         System.out.print("[" + KalahaBoard[0] + "] \t");
         System.out.print("[" + KalahaBoard[1] + "] \t");
@@ -109,21 +134,14 @@ public class Board{
         KalahaBoard = new int[15];
         hasExtraTurn = false;
 
-        /*for(int i = 0; i < KalahaBoard.length; i++){
+        for(int i = 0; i < KalahaBoard.length; i++){
             if(i <= 5 || 7 <= i && i <= 12){
-                KalahaBoard[i] = 0;
+                KalahaBoard[i] = 6;
             } else{
                 KalahaBoard[i] = 0;
             }
         }
-        KalahaBoard[0] = 1;
-        KalahaBoard[1] = 1;
-        KalahaBoard[7] = 0;
-        KalahaBoard[8] = 0;
-        KalahaBoard[9] = 0;
-        KalahaBoard[10] = 0;
-        KalahaBoard[11] = 0;
-        KalahaBoard[10] = 1;*/
+
     }
 
     public boolean isLegalMove(int action, Player player){
@@ -179,27 +197,27 @@ public class Board{
             return true;
         }
     }
-    public void CleanupPostGame(Player player)
+    public void CleanupPostGame(int playerNumber, int[] boardState)
     {
-       if (player.playerNumber == 1)
+       if (playerNumber == 1)
        {
           for(int i = 0; i < 13; i++)
           {
               if (i != 6)
               {
-                  KalahaBoard[13] += KalahaBoard[i];
-                  KalahaBoard[i] = 0;
+                  boardState[13] += boardState[i];
+                  boardState[i] = 0;
               }
           }
        }
-       else if (player.playerNumber == 2)
+       else if (playerNumber == 2)
        {
            for(int i = 0; i < 13; i++)
            {
                if (i != 6)
                {
-                   KalahaBoard[6] += KalahaBoard[i];
-                   KalahaBoard[i] = 0;
+                   boardState[6] += boardState[i];
+                   boardState[i] = 0;
                }
            }
        }

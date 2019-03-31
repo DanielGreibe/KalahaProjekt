@@ -6,7 +6,7 @@ import static java.lang.Math.min;
 public class AI {
     Board boardClass = new Board();
     int[] board = new int[14];
-    int totalNumOfBalls =  6;
+    int totalNumOfBalls =  72;
     Node init;
 
     public int move(int[] initBoard){
@@ -79,7 +79,7 @@ public class AI {
             }
             if (legalActions[i] != -1) {
                 Node child = new Node<Integer>(parent, boardClass.move(i+1, Game.Player1, originalBoard), i+1);
-                System.out.println("Value at child at i = " + i + " is " + child.getCurrentBoard()[14]);
+              //  System.out.println("Value at child at i = " + i + " is " + child.getCurrentBoard()[14]);
                 child.setData(evaluate(child.getCurrentBoard()));
                 parent.addChild(child);
             }
