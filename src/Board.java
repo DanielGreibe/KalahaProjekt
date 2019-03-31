@@ -2,15 +2,15 @@ public class Board{
     int[] KalahaBoard;
     Boolean hasExtraTurn;
 
-    public void setHasExtraTurn(boolean value){
+    public void setHasExtraTurn(boolean value, int[] boardState){
         hasExtraTurn = value;
         if (value)
         {
-            KalahaBoard[14] = 1;
+            boardState[14] = 1;
         }
         else
         {
-            KalahaBoard[14] = 0;
+            boardState[14] = 0;
         }
     }
 
@@ -73,11 +73,11 @@ public class Board{
             if(Balls == 0 && currentIndex == 6 || Balls == 0 && currentIndex == 13)
             {
 
-                setHasExtraTurn(true);
+                setHasExtraTurn(true, boardState);
             }
             else
             {
-                setHasExtraTurn(false);
+                setHasExtraTurn(false, boardState);
             }
 
             if (hasPlayerWon(player))
@@ -111,19 +111,20 @@ public class Board{
 
         for(int i = 0; i < KalahaBoard.length; i++){
             if(i <= 5 || 7 <= i && i <= 12){
-                KalahaBoard[i] = 6;
+                KalahaBoard[i] = 0;
             } else{
                 KalahaBoard[i] = 0;
             }
         }
-        /*
+        KalahaBoard[0] = 1;
+        KalahaBoard[1] = 1;
         KalahaBoard[7] = 0;
         KalahaBoard[8] = 0;
         KalahaBoard[9] = 0;
         KalahaBoard[10] = 0;
         KalahaBoard[11] = 0;
         KalahaBoard[12] = 1;
-        */
+
         //printBoard();
     }
 

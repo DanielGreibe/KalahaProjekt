@@ -22,6 +22,9 @@ public class Game{
             int index;
             if(CurrentPlayer.playerNumber == 1){
                index = ai.move(board.getKalahaBoard());
+                System.out.println("AI moves from " + index);
+
+
                //index = scanner.nextInt();
             }else{
                 System.out.println("Write a number to move from and press Enter");
@@ -78,7 +81,7 @@ public class Game{
                     CurrentPlayer = Player1;
                 }
             }
-            board.setHasExtraTurn(false);
+            board.setHasExtraTurn(false, board.getKalahaBoard());
         }
     }
     public Player Player(int[] boardState)

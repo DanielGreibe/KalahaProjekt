@@ -13,7 +13,7 @@ public class AI {
         int action = 0;
         int val = 0;
         setHeap(initBoard);
-        val = alphaBeta(init, 200, 1000000, -1000000, true, initBoard);
+        val = alphaBeta(init, 2000, 1000000, -1000000, true, initBoard);
         List<Node<Integer>> children = init.getChildren();
         for(int i = 0; i < children.size(); i++)
         {
@@ -40,6 +40,10 @@ public class AI {
             val = -1000000;
             for(int i = 0; i < children.size(); i++){
                 val = max(val, alphaBeta(children.get(i), depth -1, alpha, beta, false, children.get(i).getCurrentBoard()));
+                if (children.get(i).getCurrentBoard()[14] == 1)
+                {
+                    children.get(i).setData(max(val, alphaBeta(children.get(i), depth -1, alpha, beta, false, children.get(i).getCurrentBoard())));
+                }
                 alpha = max(alpha, val);
                 if(alpha >= beta){
                     break;
@@ -76,7 +80,7 @@ public class AI {
             }
             if (legalActions[i] != -1) {
                 Node child = new Node<Integer>(parent, boardClass.move(i+1, Game.Player1, originalBoard), i+1);
-
+                System.out.println("Value at child at i = " + i + " is " + child.getCurrentBoard()[14]);
                 child.setData(evaluate(child.getCurrentBoard()));
                 parent.addChild(child);
             }
@@ -114,9 +118,9 @@ public class AI {
     public int[] Actions(int[] boardState)
     {
         int[] Actions = new int[6];
-        for(int i= 0; i < 6; i++)
+        for(int i = 0; i < 6; i++)
         {
-            if (boardClass.isLegalMove(i+1 , Player(boardState)))
+            if (boardClass.isLegalMove(i+1 , Player(boardState)) && boardState[5-i] != 0)
             {
                 Actions[i] = i+1;
             }
