@@ -127,7 +127,7 @@ public class Board{
         System.out.print("[" + KalahaBoard[10] + "] \t");
         System.out.print("[" + KalahaBoard[9] + "] \t");
         System.out.print("[" + KalahaBoard[8] + "] \t");
-        System.out.print("[" + KalahaBoard[7] + "] \n");
+        System.out.print("[" + KalahaBoard[7] + "] \n\n");
     }
 
     public void setupGame(){
@@ -140,8 +140,13 @@ public class Board{
             } else{
                 KalahaBoard[i] = 0;
             }
-        }
-
+        }/*
+        KalahaBoard[0]=1;
+        KalahaBoard[1]=2;
+        KalahaBoard[7]=2;
+        KalahaBoard[8]=1;
+        KalahaBoard[10]=1;
+        KalahaBoard[5]=1;*/
     }
 
     public boolean isLegalMove(int action, Player player){
@@ -172,31 +177,7 @@ public class Board{
         //It is a legal move
         return true;
     }
-    public boolean hasPlayerWon(Player player)
-    {
-        if (player.playerNumber == 1)
-        {
-            for(int i = 0; i < 6; i++)
-            {
-                if (KalahaBoard[i] != 0)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-        else
-        {
-            for(int i = 7; i < 13; i++)
-            {
-                if (KalahaBoard[i] != 0)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-    }
+
     public void CleanupPostGame(int playerNumber, int[] boardState)
     {
        if (playerNumber == 1)

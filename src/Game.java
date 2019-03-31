@@ -5,16 +5,18 @@ public class Game{
     static Player Player2;
     static Player CurrentPlayer;
     static Board board;
-    static int totalNumOfBalls = 6;
+    static int totalNumOfBalls = 72;
 
     static void startGame(){
         boolean hasWon = false;
         Player1 = new Player("AI" , 1);
         Player2 = new Player("Human" , 2);
-        AI ai = new AI(totalNumOfBalls);
+        AI ai = new AI();
         board = new Board();
         Scanner scanner = new Scanner(System.in);
         CurrentPlayer = Player1;
+        System.out.println("Game start");
+        board.printBoard();
 
         while (!hasWon){
             System.out.println("It is " + CurrentPlayer.name + "'s turn");
@@ -86,10 +88,6 @@ public class Game{
         }
     }
 
-    public int[] Result(int[] boardState, int action)
-    {
-        return board.move(action, Player(boardState), boardState);
-    }
     public static boolean TerminalTest(int[] boardState){
         return boardState[6]+boardState[13] == totalNumOfBalls;
     }
