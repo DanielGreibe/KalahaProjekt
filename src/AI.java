@@ -146,7 +146,7 @@ public class AI {
             return Game.Player2;
         }
     }
-    public void printBoard(int[] boardState)
+    /*public void printBoard(int[] boardState)
     {
         System.out.print("[" + boardState[0] + "] \t");
         System.out.print("[" + boardState[1] + "] \t");
@@ -161,5 +161,5 @@ public class AI {
         System.out.print("[" + boardState[9] + "] \t");
         System.out.print("[" + boardState[8] + "] \t");
         System.out.print("[" + boardState[7] + "] \n");
-    }
+    }*/
 }
