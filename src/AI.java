@@ -6,8 +6,12 @@ import static java.lang.Math.min;
 public class AI {
     Board boardClass = new Board();
     int[] board = new int[14];
-    int totalNumOfBalls =  6;
+    int totalNumOfBalls;
     Node init;
+
+    public AI(int totalNumOfBalls){
+        this.totalNumOfBalls = totalNumOfBalls;
+    }
 
     public int move(int[] initBoard){
         int action = 0;
