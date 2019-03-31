@@ -71,7 +71,7 @@ public class Game{
                     CurrentPlayer = Player1;
                 }
             }
-            board.setHasExtraTurn(false);
+            board.setHasExtraTurn(false, board.getKalahaBoard());
         }
     }
     public Player Player(int[] boardState)
