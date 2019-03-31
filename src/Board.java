@@ -123,7 +123,7 @@ public class Board{
         KalahaBoard[9] = 0;
         KalahaBoard[10] = 0;
         KalahaBoard[11] = 0;
-        KalahaBoard[10] = 1;
+        KalahaBoard[10] = 1;*/
     }
 
     public boolean isLegalMove(int action, Player player){
