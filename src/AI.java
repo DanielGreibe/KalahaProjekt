@@ -6,7 +6,7 @@ import static java.lang.Math.min;
 public class AI {
     Board boardClass = new Board();
     int[] board = new int[14];
-    boolean goalState =  board[6]+board[13]==72;
+    int totalNumOfBalls =  72;
     Node init;
 
     public int move(int[] initBoard){
@@ -15,10 +15,8 @@ public class AI {
         setHeap(initBoard);
         val = alphaBeta(init, 2000, -1000000, 1000000, true, initBoard);
         List<Node<Integer>> children = init.getChildren();
-        for(int i = 0; i < children.size(); i++)
-        {
-            if (children.get(i).getData() == val)
-            {
+        for(int i = 0; i < children.size(); i++){
+            if (children.get(i).getData() == val){
                 action = children.get(i).getAction();
             }
         }
@@ -30,12 +28,13 @@ public class AI {
         int val;
         int action = 0;
         //setBoard(currentBoard);
-        MakeChildren(node, currentBoard);
-        List<Node<Integer>> children = node.getChildren();
-
-        if(depth == 0 || goalState){
+        if(depth == 0 || currentBoard[6]+currentBoard[13] == totalNumOfBalls){
             return evaluate(currentBoard);
         }
+
+        MakeChildren(node, currentBoard, maxPlayer);
+        List<Node<Integer>> children = node.getChildren();
+
         if(maxPlayer){
             val = -1000000;
             for(int i = 0; i < children.size(); i++){
@@ -66,10 +65,10 @@ public class AI {
         return val;
     }
 
-    private void MakeChildren(Node parent, int[] currentBoard)
+    private void MakeChildren(Node parent, int[] currentBoard, boolean maxPlayer)
     {
 
-        int[] legalActions = Actions(currentBoard);
+        int[] legalActions = Actions(currentBoard, maxPlayer);
        // System.out.println("Length of currentBoard" + currentBoard.length);
         for(int i = 0; i < legalActions.length; i++)
         {
@@ -80,7 +79,7 @@ public class AI {
             }
             if (legalActions[i] != -1) {
                 Node child = new Node<Integer>(parent, boardClass.move(i+1, Game.Player1, originalBoard), i+1);
-                System.out.println("Value at child at i = " + i + " is " + child.getCurrentBoard()[14]);
+              //  System.out.println("Value at child at i = " + i + " is " + child.getCurrentBoard()[14]);
                 child.setData(evaluate(child.getCurrentBoard()));
                 parent.addChild(child);
             }
@@ -115,18 +114,22 @@ public class AI {
             return (boardState[6] - boardState[13])*10;
         }
     }
-    public int[] Actions(int[] boardState)
-    {
+
+    public int[] Actions(int[] boardState, boolean maxPlayer) {
         int[] Actions = new int[6];
-        for(int i = 0; i < 6; i++)
-        {
-            if (boardClass.isLegalMove(i+1 , Player(boardState)) && boardState[5-i] != 0)
-            {
-                Actions[i] = i+1;
-            }
-            else
-            {
-                Actions[i] = -1;
+        for (int i = 0; i < 6; i++) {
+            if (maxPlayer) {
+                if (boardClass.isLegalMove(i + 1, Game.Player1) && boardState[5 - i] != 0) {
+                    Actions[i] = i + 1;
+                } else {
+                    Actions[i] = -1;
+                }
+            } else {
+                if (boardClass.isLegalMove(i + 1, Game.Player2) && boardState[12 - i] != 0) {
+                    Actions[i] = i + 1;
+                } else {
+                    Actions[i] = -1;
+                }
             }
         }
         return Actions;
