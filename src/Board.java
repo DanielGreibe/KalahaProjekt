@@ -4,12 +4,10 @@ public class Board{
 
     public void setHasExtraTurn(boolean value, int[] boardState){
         hasExtraTurn = value;
-        if (value)
-        {
+        if (value){
             boardState[14] = 1;
         }
-        else
-        {
+        else{
             boardState[14] = 0;
         }
     }
@@ -70,45 +68,33 @@ public class Board{
                 }
             }
             //Placing ball in your own kalaha for an extra turn
-            if(Balls == 0 && currentIndex == 6 || Balls == 0 && currentIndex == 13)
-            {
-
+            if(Balls == 0 && currentIndex == 6 || Balls == 0 && currentIndex == 13){
                 setHasExtraTurn(true, boardState);
             }
-            else
-            {
+            else{
                 setHasExtraTurn(false, boardState);
             }
-            if (playerOneHasWon(boardState))
-            {
+            if (playerOneHasWon(boardState) && Balls==0){
                 CleanupPostGame(1, boardState);
             }
-            else if (playerTwoHasWon(boardState))
-            {
+            else if (playerTwoHasWon(boardState)&& Balls == 0){
                 CleanupPostGame(2, boardState);
             }
-
         }
         return boardState;
     }
 
-    public boolean playerOneHasWon(int[] boardState)
-    {
-        for(int i = 0; i < 6; i++)
-        {
-            if (boardState[i] != 0)
-            {
+    public boolean playerOneHasWon(int[] boardState){
+        for(int i = 0; i < 6; i++){
+            if (boardState[i] != 0){
                 return false;
             }
         }
         return true;
     }
-    public boolean playerTwoHasWon(int[] boardState)
-    {
-        for(int i = 7; i < 13; i++)
-        {
-            if (boardState[i] != 0)
-            {
+    public boolean playerTwoHasWon(int[] boardState){
+        for(int i = 7; i < 13; i++){
+            if (boardState[i] != 0){
                 return false;
             }
         }
@@ -140,13 +126,7 @@ public class Board{
             } else{
                 KalahaBoard[i] = 0;
             }
-        }/*
-        KalahaBoard[0]=1;
-        KalahaBoard[1]=2;
-        KalahaBoard[7]=2;
-        KalahaBoard[8]=1;
-        KalahaBoard[10]=1;
-        KalahaBoard[5]=1;*/
+        }
     }
 
     public boolean isLegalMove(int action, Player player){
@@ -178,25 +158,18 @@ public class Board{
         return true;
     }
 
-    public void CleanupPostGame(int playerNumber, int[] boardState)
-    {
-       if (playerNumber == 1)
-       {
-          for(int i = 0; i < 13; i++)
-          {
-              if (i != 6)
-              {
+    public void CleanupPostGame(int playerNumber, int[] boardState){
+       if (playerNumber == 1){
+          for(int i = 0; i < 13; i++){
+              if (i != 6){
                   boardState[13] += boardState[i];
                   boardState[i] = 0;
               }
           }
        }
-       else if (playerNumber == 2)
-       {
-           for(int i = 0; i < 13; i++)
-           {
-               if (i != 6)
-               {
+       else if (playerNumber == 2){
+           for(int i = 0; i < 13; i++){
+               if (i != 6){
                    boardState[6] += boardState[i];
                    boardState[i] = 0;
                }

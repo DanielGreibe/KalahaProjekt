@@ -12,7 +12,7 @@ public class Node<Integer> {
         this.data = data;
     }
 
-    public Node(Node<Integer> parent, int[] currentBoard, int action) {
+    public Node(Node<Integer> parent, int[] currentBoard, int action){
         this.setParent(parent);
         this.currentBoard = currentBoard;
         this.action = action;

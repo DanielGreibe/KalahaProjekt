@@ -63,10 +63,8 @@ public class Game{
         boolean LegalMove = board.isLegalMove(action, currentPlayer);
         if (LegalMove){
             board.move(action, currentPlayer, board.getKalahaBoard());
-            if (!board.getHasExtraTurn())
-            {
-                if (currentPlayer == Player1)
-                {
+            if (!board.getHasExtraTurn()){
+                if (currentPlayer == Player1){
                     CurrentPlayer = Player2;
                 }
                 else {
@@ -74,17 +72,6 @@ public class Game{
                 }
             }
             board.setHasExtraTurn(false, board.getKalahaBoard());
-        }
-    }
-    public Player Player(int[] boardState)
-    {
-        if(boardState[14] == 1)
-        {
-            return Player1;
-        }
-        else
-        {
-            return Player2;
         }
     }
 

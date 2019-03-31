@@ -5,7 +5,6 @@ import static java.lang.Math.min;
 
 public class AI {
     Board boardClass = new Board();
-    int[] board = new int[14];
     int totalNumOfBalls =  72;
     Node init;
 
@@ -23,11 +22,8 @@ public class AI {
         return action;
     }
 
-
     public int alphaBeta(Node node, int depth, int alpha,int beta, boolean maxPlayer, int[] currentBoard){
         int val;
-        int action = 0;
-        //setBoard(currentBoard);
         if(depth == 0 || currentBoard[6]+currentBoard[13] == totalNumOfBalls){
             return evaluate(currentBoard);
         }
@@ -74,12 +70,10 @@ public class AI {
             }
             if (legalActions[i] != -1) {
                 Node child = new Node<Integer>(parent, boardClass.move(i+1, Game.Player1, originalBoard), i+1);
-              //  System.out.println("Value at child at i = " + i + " is " + child.getCurrentBoard()[14]);
                 child.setData(evaluate(child.getCurrentBoard()));
                 parent.addChild(child);
             }
         }
-
     }
 
     public void setHeap(int[] initBoard){
