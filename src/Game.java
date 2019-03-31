@@ -15,19 +15,14 @@ public class Game{
         Scanner scanner = new Scanner(System.in);
         CurrentPlayer = Player1;
 
-        board.printBoard();
-
         while (!hasWon){
             System.out.println("It is " + CurrentPlayer.name + "'s turn");
             int index;
             if(CurrentPlayer.playerNumber == 1){
                index = ai.move(board.getKalahaBoard());
-                System.out.println("AI moves from " + index);
-
-
-               //index = scanner.nextInt();
+                System.out.println("AI rykker " + index);
             }else{
-                System.out.println("Write a number to move from and press Enter");
+                System.out.println("Indtast felt at rykke fra");
                 index = scanner.nextInt();
             }
                 switch(index){
@@ -50,13 +45,12 @@ public class Game{
                         move(6, CurrentPlayer);
                         break;
                     default:
-                        System.out.println("Wrong input, please try again");
+                        System.out.println("Forkert input, prøv igen");
                         break;
             }
             if(TerminalTest(board.getKalahaBoard())){
                 hasWon = true;
                 board.printBoard();
-                System.out.println("The game has ended");
             } else {
                 board.printBoard();
             }
@@ -67,12 +61,8 @@ public class Game{
         if (LegalMove)
         {
             board.move(action, currentPlayer, board.getKalahaBoard());
-            if(board.getHasExtraTurn())
+            if (!board.getHasExtraTurn())
             {
-                System.out.println("You get an extra turn");
-            }
-            else
-                {
                 if (currentPlayer == Player1)
                 {
                     CurrentPlayer = Player2;

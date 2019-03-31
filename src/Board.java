@@ -109,7 +109,7 @@ public class Board{
         KalahaBoard = new int[15];
         hasExtraTurn = false;
 
-        for(int i = 0; i < KalahaBoard.length; i++){
+        /*for(int i = 0; i < KalahaBoard.length; i++){
             if(i <= 5 || 7 <= i && i <= 12){
                 KalahaBoard[i] = 0;
             } else{
@@ -123,9 +123,7 @@ public class Board{
         KalahaBoard[9] = 0;
         KalahaBoard[10] = 0;
         KalahaBoard[11] = 0;
-        KalahaBoard[12] = 1;
-
-        //printBoard();
+        KalahaBoard[10] = 1;
     }
 
     public boolean isLegalMove(int action, Player player){
