@@ -59,8 +59,7 @@ public class Game{
     }
     static void move(int action, Player currentPlayer){
         boolean LegalMove = board.isLegalMove(action, currentPlayer);
-        if (LegalMove)
-        {
+        if (LegalMove){
             board.move(action, currentPlayer, board.getKalahaBoard());
             if (!board.getHasExtraTurn())
             {
