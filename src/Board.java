@@ -4,6 +4,14 @@ public class Board{
 
     public void setHasExtraTurn(boolean value){
         hasExtraTurn = value;
+        if (value)
+        {
+            KalahaBoard[14] = 1;
+        }
+        else
+        {
+            KalahaBoard[14] = 0;
+        }
     }
 
     public boolean getHasExtraTurn(){
@@ -64,9 +72,12 @@ public class Board{
             //Placing ball in your own kalaha for an extra turn
             if(Balls == 0 && currentIndex == 6 || Balls == 0 && currentIndex == 13)
             {
-                System.out.println("You get an extra turn");
-                hasExtraTurn = true;
-                boardState[14] = 1;
+
+                setHasExtraTurn(true);
+            }
+            else
+            {
+                setHasExtraTurn(false);
             }
 
             if (hasPlayerWon(player))
@@ -113,7 +124,7 @@ public class Board{
         KalahaBoard[11] = 0;
         KalahaBoard[12] = 1;
         */
-        printBoard();
+        //printBoard();
     }
 
     public boolean isLegalMove(int action, Player player){

@@ -76,6 +76,7 @@ public class AI {
             }
             if (legalActions[i] != -1) {
                 Node child = new Node<Integer>(parent, boardClass.move(i+1, Game.Player1, originalBoard), i+1);
+
                 child.setData(evaluate(child.getCurrentBoard()));
                 parent.addChild(child);
             }
