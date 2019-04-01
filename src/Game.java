@@ -24,7 +24,7 @@ public class Game{
             if(CurrentPlayer.playerNumber == 1){
                index = ai.move(board.getKalahaBoard());
             }else{
-                System.out.println("Indtast felt at rykke fra");
+                System.out.println("Choose a move and press enter:");
                 index = scanner.nextInt();
             }
                 switch(index){
@@ -47,7 +47,7 @@ public class Game{
                         move(6, CurrentPlayer);
                         break;
                     default:
-                        System.out.println("Forkert input, prøv igen");
+                        System.out.println("Wrong input, please try again");
                         break;
             }
             if(TerminalTest(board.getKalahaBoard())){
