@@ -54,14 +54,24 @@ public class Game{
             }
             if(TerminalTest(board.getKalahaBoard())){
                 hasWon = true;
-                winner = CurrentPlayer;
+                if(board.getKalahaBoard()[6] > board.getKalahaBoard()[13]){
+                    winner = Player2;
+                } else if(board.getKalahaBoard()[6] < board.getKalahaBoard()[13]){
+                    winner = Player1;
+                } else{
+                    winner = null;
+                }
                 board.printBoard();
             } else {
                 board.printBoard();
             }
         }
         System.out.println("The game has ended!");
-        System.out.println("The " + CurrentPlayer.name + " player is the winner!");
+        if(winner != null){
+            System.out.println("The " + winner.name + " player is the winner!");
+        } else {
+            System.out.println("The game is a tie!");
+        }
     }
     static void move(int action, Player currentPlayer){
         boolean LegalMove = board.isLegalMove(action, currentPlayer);
