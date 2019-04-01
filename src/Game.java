@@ -6,6 +6,7 @@ public class Game{
     static Player CurrentPlayer;
     static Board board;
     static int totalNumOfBalls = 72;
+    static Player winner;
 
     static void startGame(){
         boolean hasWon = false;
@@ -23,6 +24,7 @@ public class Game{
             int index;
             if(CurrentPlayer.playerNumber == 1){
                index = ai.move(board.getKalahaBoard());
+                System.out.println("AI takes form hole " +  index);
             }else{
                 System.out.println("Choose a move and press enter:");
                 index = scanner.nextInt();
@@ -52,10 +54,23 @@ public class Game{
             }
             if(TerminalTest(board.getKalahaBoard())){
                 hasWon = true;
+                if(board.getKalahaBoard()[6] > board.getKalahaBoard()[13]){
+                    winner = Player2;
+                } else if(board.getKalahaBoard()[6] < board.getKalahaBoard()[13]){
+                    winner = Player1;
+                } else{
+                    winner = null;
+                }
                 board.printBoard();
             } else {
                 board.printBoard();
             }
+        }
+        System.out.println("The game has ended!");
+        if(winner != null){
+            System.out.println("The " + winner.name + " player is the winner!");
+        } else {
+            System.out.println("The game is a tie!");
         }
     }
     static void move(int action, Player currentPlayer){
