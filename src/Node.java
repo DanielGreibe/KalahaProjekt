@@ -23,14 +23,7 @@ public class Node<Integer> {
     }
 
     public void setParent(Node<Integer> parent) {
-        //parent.addChild(this);
         this.parent = parent;
-    }
-
-    public void addChild(Integer data) {
-        Node<Integer> child = new Node<>(data);
-        child.setParent(this);
-        this.children.add(child);
     }
 
     public void addChild(Node<Integer> child) {

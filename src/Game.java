@@ -23,7 +23,6 @@ public class Game{
             int index;
             if(CurrentPlayer.playerNumber == 1){
                index = ai.move(board.getKalahaBoard());
-               //index = scanner.nextInt();
             }else{
                 System.out.println("Indtast felt at rykke fra");
                 index = scanner.nextInt();

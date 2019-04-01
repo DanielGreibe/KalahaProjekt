@@ -12,7 +12,7 @@ public class AI {
         int action = 0;
         int val = 0;
         setHeap(initBoard);
-        val = alphaBeta(init, 200, -1000000, 1000000, true, initBoard);
+        val = alphaBeta(init, 10, -1000000, 1000000, true, initBoard);
         List<Node<Integer>> children = init.getChildren();
         for(int i = 0; i < children.size(); i++){
             if (children.get(i).getData() == val){
@@ -43,7 +43,7 @@ public class AI {
                     break;
                 }
                 node.setData(val);
-                return val;
+                //return val;
             }
         } else{
             val = 1000000;
@@ -54,7 +54,7 @@ public class AI {
                     break;
                 }
                 node.setData(val);
-                return val;
+                //return val;
             }
         }
         return val;
@@ -62,7 +62,6 @@ public class AI {
 
     private void MakeChildren(Node parent, int[] currentBoard, boolean maxPlayer){
         int[] legalActions = Actions(currentBoard, maxPlayer);
-       // System.out.println("Length of currentBoard" + currentBoard.length);
         for(int i = 0; i < legalActions.length; i++){
             int[] originalBoard = new int[15];
             for(int j = 0; j < currentBoard.length; j++){
