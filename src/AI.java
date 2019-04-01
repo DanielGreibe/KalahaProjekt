@@ -12,7 +12,7 @@ public class AI {
         int action = 0;
         int val = 0;
         setHeap(initBoard);
-        val = alphaBeta(init, 15, -1000000, 1000000, true, initBoard);
+        val = alphaBeta(init, 10, -1000000, 1000000, true, initBoard);
         List<Node<Integer>> children = init.getChildren();
         for(int i = 0; i < children.size(); i++){
             if (children.get(i).getData() == val){
