@@ -43,7 +43,6 @@ public class AI {
                     break;
                 }
                 node.setData(val);
-                //return val;
             }
         } else{
             val = 1000000;
@@ -54,7 +53,6 @@ public class AI {
                     break;
                 }
                 node.setData(val);
-                //return val;
             }
         }
         return val;
