@@ -1,0 +1,1 @@
+To run the program first unzip it then double click on the run.bat file. This should start the .jar file and you can then play against an AI in kalaha.
