@@ -70,6 +70,9 @@ public class Game{
                     CurrentPlayer = Player1;
                 }
             }
+            else {
+                System.out.println("You get an extra turn!");
+            }
             board.setHasExtraTurn(false, board.getKalahaBoard());
         }
     }
