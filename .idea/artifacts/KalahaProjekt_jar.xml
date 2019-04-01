@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="KalahaProjekt:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/KalahaProjekt_jar</output-path>
+    <root id="archive" name="KalahaProjekt.jar">
+      <element id="module-output" name="KalahaProjekt" />
+    </root>
+  </artifact>
+</component>
